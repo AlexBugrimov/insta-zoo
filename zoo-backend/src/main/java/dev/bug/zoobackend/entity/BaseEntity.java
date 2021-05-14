@@ -22,4 +22,11 @@ public abstract class BaseEntity {
     protected void onCreate() {
         this.createdDate = LocalDateTime.now();
     }
+
+    protected BaseEntity() {
+    }
+
+    protected BaseEntity(Long id) {
+        this.id = id;
+    }
 }
