@@ -13,10 +13,12 @@ import java.util.*;
 @Data
 public class User extends BaseEntity implements UserDetails {
 
+    private static final long serialVersionUID = 42L;
+
     @Column(nullable = false)
     private String name;
 
-    @Column(unique = true, updatable = true)
+    @Column(unique = true)
     private String username;
 
     @Column(nullable = false)
