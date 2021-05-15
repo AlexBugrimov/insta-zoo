@@ -28,7 +28,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final CustomUserDetailsService userDetailsService;
 
-    public SecurityConfig(JwtAuthenticationEntryPoint authenticationEntryPoint, CustomUserDetailsService userDetailsService) {
+    public SecurityConfig(JwtAuthenticationEntryPoint authenticationEntryPoint,
+                          CustomUserDetailsService userDetailsService) {
         this.authenticationEntryPoint = authenticationEntryPoint;
         this.userDetailsService = userDetailsService;
     }
@@ -52,8 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .userDetailsService(userDetailsService)
+        auth.userDetailsService(userDetailsService)
                 .passwordEncoder(bCryptPasswordEncoder());
     }
 
