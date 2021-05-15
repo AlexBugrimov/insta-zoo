@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -18,17 +17,13 @@ import java.io.IOException;
 import java.util.List;
 
 @Slf4j
-@Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final JwtTokenProvider tokenProvider;
-    private final CustomUserDetailsService detailsService;
+    @Autowired
+    private JwtTokenProvider tokenProvider;
 
     @Autowired
-    public JwtAuthenticationFilter(JwtTokenProvider tokenProvider, CustomUserDetailsService detailsService) {
-        this.tokenProvider = tokenProvider;
-        this.detailsService = detailsService;
-    }
+    private CustomUserDetailsService detailsService;
 
     @Override
     protected void doFilterInternal(
