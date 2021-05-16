@@ -1,7 +1,7 @@
 package dev.bug.zoobackend.service;
 
-import dev.bug.zoobackend.entity.Role;
 import dev.bug.zoobackend.entity.User;
+import dev.bug.zoobackend.entity.enums.ERole;
 import dev.bug.zoobackend.exceptions.UserExistException;
 import dev.bug.zoobackend.payload.request.SignupRequest;
 import dev.bug.zoobackend.repository.UserRepository;
@@ -29,7 +29,7 @@ public class UserService {
         user.setLastname(userIn.getLastname());
         user.setUsername(userIn.getUsername());
         user.setPassword(passwordEncoder.encode(userIn.getPassword()));
-        user.addRoles(Role.ROLE_USER);
+        user.getRoles().add(ERole.ROLE_USER);
         try {
             log.info("Saving user {}", userIn.getEmail());
             return userRepository.save(user);

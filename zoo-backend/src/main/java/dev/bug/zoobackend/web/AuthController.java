@@ -1,5 +1,7 @@
 package dev.bug.zoobackend.web;
 
+import dev.bug.zoobackend.entity.User;
+import dev.bug.zoobackend.payload.request.LoginRequest;
 import dev.bug.zoobackend.payload.request.SignupRequest;
 import dev.bug.zoobackend.payload.response.JwtTokenSuccessResponse;
 import dev.bug.zoobackend.payload.response.MessageResponse;
@@ -43,15 +45,15 @@ public class AuthController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<Object> authenticationUser(@Valid @RequestBody SignupRequest signupRequest,
+    public ResponseEntity<Object> authenticationUser(@Valid @RequestBody LoginRequest loginRequest,
                                                      BindingResult bindingResult) {
         ResponseEntity<Object> errors = responseErrorValidation.mapValidationService(bindingResult);
         if (!ObjectUtils.isEmpty(errors)) {
             return errors;
         }
         var authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                signupRequest.getUsername(),
-                signupRequest.getPassword()
+                loginRequest.getUsername(),
+                loginRequest.getPassword()
         ));
         SecurityContextHolder.getContext().setAuthentication(authenticate);
         String jwt = SecurityConstants.TOKEN_PREFIX + jwtTokenProvider.generateToken(authenticate);
@@ -65,9 +67,9 @@ public class AuthController {
         if (!ObjectUtils.isEmpty(errors)) {
             return errors;
         }
-        userService.createUser(signupRequest);
+        var user = userService.createUser(signupRequest);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(new MessageResponse("User registered successfully"));
+                .body(new MessageResponse("User " + user.getUsername() + " registered successfully"));
     }
 }

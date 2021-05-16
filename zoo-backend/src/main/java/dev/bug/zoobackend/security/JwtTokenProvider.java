@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import static dev.bug.zoobackend.security.SecurityConstants.EXPIRATION_TIME;
@@ -22,12 +23,11 @@ public class JwtTokenProvider {
         var now = Date.from(Instant.now());
         var expiryDate = Date.from(Instant.ofEpochMilli(now.getTime() + EXPIRATION_TIME));
         var userId = Long.toString(user.getId());
-        var claimsMap = Map.<String, Object>of(
-                "id", userId,
-                "username", user.getEmail(),
-                "firstname", user.getName(),
-                "lastname", user.getLastname()
-        );
+        Map<String, Object> claimsMap = new HashMap<>();
+        claimsMap.put("id", userId);
+        claimsMap.put("username", user.getEmail());
+        claimsMap.put("firstname", user.getName());
+        claimsMap.put("lastname", user.getLastname());
         return Jwts.builder()
                 .setSubject(userId)
                 .addClaims(claimsMap)
@@ -54,7 +54,7 @@ public class JwtTokenProvider {
     }
 
     public Long getUserIdFromToken(String token) {
-        Claims claims = Jwts.parser()
+        var claims = Jwts.parser()
                 .setSigningKey(SECRET)
                 .parseClaimsJwt(token)
                 .getBody();

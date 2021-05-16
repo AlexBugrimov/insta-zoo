@@ -19,7 +19,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest httpServletRequest,
                          HttpServletResponse httpServletResponse,
                          AuthenticationException e) throws IOException, ServletException {
-        InvalidLoginResponse invalidLoginResponse = new InvalidLoginResponse();
+        var invalidLoginResponse = new InvalidLoginResponse();
         String jsonLoginResponse = new Gson().toJson(invalidLoginResponse);
         httpServletResponse.setContentType(SecurityConstants.CONTENT_TYPE);
         httpServletResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
