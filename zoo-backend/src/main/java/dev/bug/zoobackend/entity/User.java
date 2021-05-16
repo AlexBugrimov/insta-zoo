@@ -2,26 +2,33 @@ package dev.bug.zoobackend.entity;
 
 import dev.bug.zoobackend.entity.enums.RoleEnum;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.*;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
 public class User extends BaseEntity implements UserDetails {
 
     @Column(nullable = false)
     private String name;
+
     @Column(unique = true, updatable = false)
     private String username;
+
     @Column(nullable = false)
     private String lastname;
+
     @Column(unique = true)
     private String email;
+
     @Column(columnDefinition = "text")
     private String bio;
+
     @Column(length = 3000)
     private String password;
 
