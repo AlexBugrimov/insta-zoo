@@ -21,7 +21,6 @@ public class ResponseErrorValidation {
                     errorMap.put(error.getCode(), error.getDefaultMessage());
                 }
             }
-
             for (FieldError error : result.getFieldErrors()) {
                 errorMap.put(error.getField(), error.getDefaultMessage());
             }
