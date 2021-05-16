@@ -1,6 +1,6 @@
 package dev.bug.zoobackend.entity;
 
-import dev.bug.zoobackend.entity.enums.ERole;
+import dev.bug.zoobackend.entity.enums.RoleEnum;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,10 +25,10 @@ public class User extends BaseEntity implements UserDetails {
     @Column(length = 3000)
     private String password;
 
-    @ElementCollection(targetClass = ERole.class, fetch = FetchType.EAGER)
+    @ElementCollection(targetClass = RoleEnum.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"))
-    private Set<ERole> roles = new HashSet<>();
+    private Set<RoleEnum> roles = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)
     private List<Post> posts = new ArrayList<>();

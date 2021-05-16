@@ -1,6 +1,6 @@
 package dev.bug.zoobackend.entity.enums;
 
-public enum ERole {
+public enum RoleEnum {
     ROLE_USER,
     ROLE_ADMIN
 }
