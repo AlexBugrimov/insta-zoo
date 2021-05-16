@@ -82,5 +82,9 @@ public class User extends BaseEntity implements UserDetails {
     public String getPassword() {
         return password;
     }
+
+    public void addRoles(Role... roles) {
+        this.roles.addAll(List.of(roles));
+    }
 }
 
